@@ -1,0 +1,295 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Benutzerhandbuch - Smart Greenhouse</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #f3f4f6;
+        }
+        .manual-card {
+            background-color: white;
+            border-radius: 0.75rem;
+            border: 1px solid #e5e7eb;
+            box-shadow: 0 4px 6px -1px rgb(0 0 0 / 0.05), 0 2px 4px -2px rgb(0 0 0 / 0.05);
+            padding: 1.5rem;
+            transition: transform 0.2s, box-shadow 0.2s;
+        }
+        .manual-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 15px -3px rgb(0 0 0 / 0.1), 0 4px 6px -4px rgb(0 0 0 / 0.1);
+        }
+        h2 { font-size: 2.25rem; font-weight: 800; color: #111827; margin-bottom: 1rem; }
+        h3 { font-size: 1.25rem; font-weight: 700; color: #1f2937; }
+        h4 { font-size: 1.125rem; font-weight: 700; color: #1f2937; }
+        .gemini-button {
+            background: linear-gradient(45deg, #4ECDC4, #45B7D1);
+            color: white;
+            font-weight: 600;
+            padding: 0.75rem 1.5rem;
+            border-radius: 0.5rem;
+            transition: all 0.3s;
+            border: none;
+            cursor: pointer;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+        }
+        .gemini-button:hover { transform: translateY(-2px); box-shadow: 0 7px 10px rgba(0,0,0,0.15); }
+        .gemini-button:disabled { background: #9ca3af; cursor: not-allowed; transform: translateY(0); box-shadow: none; }
+        .loader { border: 4px solid #f3f4f6; border-top: 4px solid #4ECDC4; border-radius: 50%; width: 24px; height: 24px; animation: spin 1s linear infinite; }
+        @keyframes spin { 0% { transform: rotate(0deg); } 100% { transform: rotate(360deg); } }
+        code { background-color: #e5e7eb; padding: 0.2rem 0.4rem; border-radius: 0.25rem; font-family: monospace; color: #be123c; font-size: 0.875rem; }
+        pre code { display: block; white-space: pre-wrap; word-break: break-all; }
+        details > summary { cursor: pointer; font-size: 1.125rem; font-weight: 600; }
+        .arch-arrow {
+            position: relative;
+            flex-grow: 1;
+            background: #d1d5db; /* gray-300 */
+            height: 2px;
+        }
+        .arch-arrow::after {
+            content: '';
+            position: absolute;
+            right: -1px;
+            top: -4px;
+            width: 0;
+            height: 0;
+            border-top: 5px solid transparent;
+            border-bottom: 5px solid transparent;
+            border-left: 8px solid #d1d5db; /* gray-300 */
+        }
+    </style>
+</head>
+<body>
+    <div class="max-w-7xl mx-auto p-4 sm:p-6 lg:p-8">
+        <header class="text-center my-12">
+            <div class="text-6xl mb-4">🍓</div>
+            <h1 class="text-4xl sm:text-5xl font-extrabold text-[#FF6B6B]">Smart Greenhouse Handbuch</h1>
+            <p class="mt-4 text-lg text-gray-600">Ihr digitaler Leitfaden für den vollautomatischen Erdbeeranbau</p>
+        </header>
+
+        <main class="space-y-16">
+            
+            <section>
+                <h2 class="text-center">Kapitel 1: Willkommen an Bord!</h2>
+                <p class="text-center text-gray-700 max-w-3xl mx-auto mt-4">Dieses Handbuch macht Sie mit allen Funktionen der Steuerungsoberfläche (GUI) vertraut, damit Sie das System optimal für Ihre Erdbeerzucht nutzen können.</p>
+                <div class="manual-card mt-8">
+                    <h3 class="flex items-center gap-3 text-[#45B7D1]"><div class="text-3xl">🖥️</div><span>Die Benutzeroberfläche im Überblick</span></h3>
+                    <ol class="list-decimal list-inside space-y-2 mt-4 text-gray-700 pl-4">
+                        <li><strong>Statusleiste:</strong> Zeigt ganz oben den Verbindungsstatus.</li>
+                        <li><strong>Sensor-Dashboard:</strong> Eine Live-Anzeige aller wichtigen Messwerte.</li>
+                        <li><strong>Aktor-Steuerung:</strong> Ihr Schaltzentrum für alle Geräte.</li>
+                        <li><strong>Globale Einstellungen:</strong> Das Gehirn des Automatik-Modus.</li>
+                    </ol>
+                </div>
+            </section>
+
+            <section>
+                <h2 class="text-center">Kapitel 2: Die Sensoren verstehen</h2>
+                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mt-8">
+                    <div class="manual-card"><h3 class="flex items-center gap-3 text-[#FF6B6B]"><div class="text-2xl">🌡️</div><span>Temperatur & Luftfeuchte</span></h3><p class="mt-2 text-gray-600">Ein <strong>DHT22</strong> Sensor misst diese beiden Werte. Sie sind der Motor des Pflanzenwachstums und entscheidend zur Vermeidung von Pilzkrankheiten. <strong>Reaktion:</strong> Lüfter & Fenster.</p></div>
+                    <div class="manual-card"><h3 class="flex items-center gap-3 text-green-500"><div class="text-2xl">🌿</div><span>Bodenfeuchte</span></h3><p class="mt-2 text-gray-600">Drei <strong>HW-390</strong> Sensoren messen die Feuchtigkeit an verschiedenen Stellen. Dies ist der direkteste Indikator für den Wasserbedarf. <strong>Reaktion:</strong> Pumpe.</p></div>
+                    <div class="manual-card"><h3 class="flex items-center gap-3 text-[#FED766]"><div class="text-2xl">☀️</div><span>Lichtstärke</span></h3><p class="mt-2 text-gray-600">Ein Lichtsensor misst die Helligkeit. Licht ist die Energiequelle der Pflanze für die Photosynthese. <strong>Reaktion:</strong> Lampen (im Outdoor-Modus).</p></div>
+                    <div class="manual-card"><h3 class="flex items-center gap-3 text-purple-500"><div class="text-2xl">😎</div><span>UV-Index</span></h3><p class="mt-2 text-gray-600">Ein <strong>UV Sensor v1.1</strong> misst die UV-Strahlung. Dient Ihnen als Indikator für Sonnenbrand-Stress der Pflanzen. <strong>Reaktion:</strong> Keine (nur zur Information).</p></div>
+                    <div class="manual-card col-span-1 md:col-span-2 lg:grid-cols-3"><h3 class="flex items-center gap-3 text-blue-500"><div class="text-2xl">🔬</div><span>pH-Wert (Manuell)</span></h3><p class="mt-2 text-gray-600">Ein <strong>P5310 A pH-Sensor</strong> liegt zur manuellen Kontrolle bereit. Der pH-Wert ist entscheidend für die Nährstoffaufnahme der Pflanze. Optimal für Erdbeeren ist ein Wert zwischen 5.8 und 6.5. Dieser Wert ist aktuell <strong>nicht</strong> in die Automatik eingebunden und muss von Hand abgelesen werden.</p></div>
+                </div>
+            </section>
+            
+            <section>
+                <h2 class="text-center">Kapitel 3: Das Gewächshaus steuern</h2>
+                <div class="manual-card mt-8">
+                    <h3 class="flex items-center gap-3 text-[#45B7D1]"><div class="text-3xl">🕹️</div><span>Grundprinzip: AUTO vs. MANUAL</span></h3>
+                    <div class="flex flex-col md:flex-row gap-6 mt-4">
+                        <div class="flex-1 p-6 rounded-lg bg-blue-50 border-2 border-blue-200"><h4 class="font-bold text-blue-800 text-xl">🤖 AUTO-Modus</h4><p class="text-blue-700 mt-2">Die intelligente Automatik steuert alles für Sie.</p></div>
+                        <div class="flex-1 p-6 rounded-lg bg-yellow-50 border-2 border-yellow-300"><h4 class="font-bold text-yellow-800 text-xl"> MANUAL-Modus</h4><p class="text-yellow-700 mt-2">Sie haben die volle Kontrolle über den EIN/AUS-Knopf.</p></div>
+                    </div>
+                </div>
+            </section>
+
+            <section>
+                <h2 class="text-center">Kapitel 4: Die Automatik meistern</h2>
+                <div class="grid grid-cols-1 lg:grid-cols-2 gap-8 mt-8">
+                    <div class="manual-card">
+                         <h3 class="flex items-center gap-3 text-[#45B7D1]"><div class="text-3xl">🌱</div><span>Einstellung 1: Wachstumsphase</span></h3>
+                        <p class="mt-2 text-gray-600">Wählen Sie hier die aktuelle Phase Ihrer Erdbeeren, um die Zielwerte für Temperatur und Luftfeuchtigkeit anzupassen.</p>
+                        <div class="chart-container relative w-full h-80 mt-6"><canvas id="growthPhaseChart"></canvas></div>
+                    </div>
+                    <div class="manual-card">
+                         <h3 class="flex items-center gap-3 text-[#45B7D1]"><div class="text-3xl">💡</div><span>Einstellung 2: Licht-Modus</span></h3>
+                         <p class="mt-2 text-gray-600">Sagen Sie dem System, wo das Gewächshaus steht. Davon hängt die Lampensteuerung ab.</p>
+                        <div class="space-y-4 mt-6">
+                            <div class="p-4 rounded-lg bg-gray-100 border"><h4 class="font-bold text-lg">Indoor (Werkstatt)</h4><p class="text-sm text-gray-600 mt-1">Die Lampen sind die Hauptlichtquelle (06-20 Uhr).</p></div>
+                            <div class="p-4 rounded-lg bg-gray-100 border"><h4 class="font-bold text-lg">Outdoor (Feuertreppe)</h4><p class="text-sm text-gray-600 mt-1">Die Lampen unterstützen nur bei starker Bewölkung.</p></div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <section><h2 class="text-center">Kapitel 5: Tipps für die Rekordernte</h2><div class="grid grid-cols-1 md:grid-cols-2 gap-6 mt-8"><div class="manual-card"><h3 class="flex items-center gap-3 text-yellow-500"><div class="text-2xl">🐝</div><span>Bestäubung</span></h3><p class="mt-2 text-gray-600">In der Blütephase die Blüten sanft mit einem weichen Pinsel bestäuben oder die Pflanze leicht schütteln. In einem geschlossenen Raum überlebenswichtig für die Fruchtbildung!</p></div><div class="manual-card"><h3 class="flex items-center gap-3 text-green-500"><div class="text-2xl">🌿</div><span>Nährstoffe</span></h3><p class="mt-2 text-gray-600">Unterstützen Sie Ihre Pflanzen! Besonders in der Fruchtphase hilft ein kaliumbetonter Dünger (z.B. Beeren- oder Tomatendünger), um süßere und größere Früchte zu erhalten.</p></div></div></section>
+            <section><h2 class="text-center">Kapitel 6: Wartung & Sicherheit</h2><div class="grid grid-cols-1 md:grid-cols-2 gap-6 mt-8"><div class="manual-card border-l-4 border-red-500"><h3 class="flex items-center gap-3 text-red-600"><div class="text-2xl">⚡</div><span>Sicherheit Zuerst</span></h3><p class="mt-2 text-gray-600"><strong>Vorsicht: Wasser und Strom!</strong> Stellen Sie sicher, dass alle elektrischen Komponenten (Netzteile, Steckdosen) absolut trocken und vor Spritzwasser geschützt sind.</p></div><div class="manual-card"><h3 class="flex items-center gap-3"><div class="text-2xl">🔧</div><span>Regelmäßige Checks</span></h3><ul class="list-disc list-inside space-y-2 mt-2 text-gray-600"><li><strong>Wasserstand prüfen:</strong> Füllen Sie den Wasserkanister regelmäßig auf.</li><li><strong>Sensoren reinigen:</strong> Befreien Sie die Bodenfeuchtesensoren gelegentlich von Erdresten.</li><li><strong>Schläuche kontrollieren:</strong> Achten Sie darauf, dass der Pumpenschlauch keine Knicke hat.</li></ul></div></div></section>
+            <section><h2 class="text-center">Kapitel 7: KI-Gartenexperte ✨</h2><div class="manual-card mt-8"><h3 class="flex items-center gap-3 text-[#45B7D1]"><div class="text-3xl">🧑‍🌾</div><span>Fragen Sie den Experten</span></h3><div class="mt-4"><label for="plant-question" class="font-semibold text-gray-700">Ihre Frage:</label><div class="flex flex-col sm:flex-row gap-2 mt-2"><input type="text" id="plant-question" placeholder="z.B. Wie züchte ich Auberginen?" class="flex-grow p-3 border border-gray-300 rounded-md focus:ring-2 focus:ring-[#4ECDC4] focus:border-transparent"><button id="ask-button" class="gemini-button">Frage stellen</button></div></div><div id="chat-container" class="mt-6 hidden"><div class="flex items-center gap-3 mb-2"><h4 class="font-bold text-lg text-gray-700">Antwort des Experten</h4><div id="chat-loader" class="loader hidden"></div></div><div id="chat-result" class="p-4 bg-blue-50 border border-blue-200 rounded-lg text-blue-800 space-y-4"></div></div></div></section>
+            <section><h2 class="text-center">Kapitel 8: Fehlerbehebung</h2><div class="space-y-4 mt-8"><details class="manual-card"><summary class="font-semibold cursor-pointer">Ein Sensor zeigt nur "--" an.</summary><p class="mt-2 text-gray-600">Das deutet auf ein Verbindungsproblem hin. Überprüfen Sie, ob das entsprechende Kabel am Sensor und am Arduino fest sitzt.</p></details><details class="manual-card"><summary class="font-semibold cursor-pointer">Die Pumpe läuft, aber es kommt kein Wasser.</summary><p class="mt-2 text-gray-600">Prüfen Sie zuerst den Wasserstand im Kanister. Kontrollieren Sie danach den Schlauch auf Knicke und Verstopfungen.</p></details><details class="manual-card"><summary class="font-semibold cursor-pointer">Das Fenster öffnet/schließt sich nicht richtig.</summary><p class="mt-2 text-gray-600">Prüfen Sie die Mechanik auf Blockaden. Ggf. muss die Laufzeit des Motors im Arduino-Code angepasst werden.</p></details></div></section>
+
+            <!-- ANHANG -->
+            <section class="mt-20 pt-10 border-t-4 border-dashed border-gray-200">
+                <h2 class="text-center text-3xl text-gray-700">Anhang für Entwickler & Bastler</h2>
+                <div class="manual-card mt-8">
+                    <h3 class="flex items-center gap-3 text-[#45B7D1]"><div class="text-3xl">🏛️</div><span>A: Design-Philosophie & Architektur</span></h3>
+                    <p class="mt-4 text-gray-600">Das System basiert auf einer klaren Arbeitsteilung:</p>
+                    <ul class="list-disc list-inside space-y-2 mt-4 text-gray-700 pl-4">
+                        <li><strong>Raspberry Pi (Das Gehirn):</strong> Verantwortlich für die Benutzeroberfläche (GUI), Datenvisualisierung, KI-Anbindung und das Senden von Befehlen.</li>
+                        <li><strong>Arduino (Das Nervensystem):</strong> Führt Befehle aus, liest Sensoren in Echtzeit und schaltet die Aktoren. Läuft autonom und stabil.</li>
+                    </ul>
+                    <div class="mt-6 p-4 border rounded-lg bg-gray-50">
+                        <h4 class="font-bold text-center mb-4">Visuelle Systemarchitektur</h4>
+                        <div class="flex flex-col md:flex-row items-center justify-center gap-4 md:gap-8 text-center text-sm">
+                            <div class="flex flex-col items-center">
+                                <div class="text-4xl">👤</div>
+                                <div class="font-bold">Benutzer</div>
+                                <div class="w-px h-4 bg-gray-400"></div>
+                                <div class="p-3 bg-purple-100 rounded-lg shadow-sm border"><h4 class="font-bold">GUI (Raspberry Pi 5)</h4><p>Python / PyQt5</p></div>
+                            </div>
+                            <div class="flex items-center w-full md:w-auto"><div class="arch-arrow"></div><span class="mx-2 text-xs text-gray-500 whitespace-nowrap">JSON via USB</span><div class="arch-arrow"></div></div>
+                            <div class="p-3 bg-teal-100 rounded-lg shadow-sm border"><h4 class="font-bold">Logik (Arduino Mega)</h4><p>.ino Sketch</p></div>
+                            <div class="flex items-center w-full md:w-auto"><div class="arch-arrow"></div><span class="mx-2 text-xs text-gray-500 whitespace-nowrap">I/O Signale</span><div class="arch-arrow"></div></div>
+                            <div class="flex flex-col gap-4"><div class="p-3 bg-yellow-100 rounded-lg shadow-sm border"><h4 class="font-bold">Sensoren</h4><p>DHT22, HW-390 etc.</p></div><div class="p-3 bg-red-100 rounded-lg shadow-sm border"><h4 class="font-bold">Aktoren</h4><p>Pumpe, Lüfter etc.</p></div></div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="manual-card">
+                    <h3 class="flex items-center gap-3 text-[#45B7D1]"><div class="text-3xl">⚙️</div><span>B: Hardware-Spezifikationen</span></h3>
+                     <ul class="list-disc list-inside space-y-4 text-gray-700 pl-4 mt-4">
+                        <li><strong>Steuerungszentrale:</strong> Raspberry Pi 5 & Arduino Mega</li>
+                        <li><strong>Sensorik:</strong> 1x DHT22, 3x HW-390, 1x UV Sensor v1.1, 1x P5310 A (manuell)</li>
+                        <li><strong>Aktorik:</strong> 2x be quiet! Pure Wings 2 120mm, 1x Comet Ocean Plus, 2x PARUS Growlight Cultura 18W, 1x AIRPAX 9904 120 52607 12DC, 1x TRU COMPONENTS 8er Relaisboard</li>
+                    </ul>
+                </div>
+
+                <div class="manual-card">
+                    <h3 class="flex items-center gap-3 text-[#45B7D1]"><div class="text-3xl">🔌</div><span>C: Aktor-Spannungsversorgung</span></h3>
+                     <div class="space-y-6 mt-4">
+                        <div><h4 class="font-bold">Lüfter:</h4><p class="text-sm text-gray-600">12V DC. Empfehlung: Betrieb mit <strong>5-7V</strong> über einen Step-Down-Converter für eine sanfte Brise.</p></div><hr>
+                        <div><h4 class="font-bold">Pumpe:</h4><p class="text-sm text-gray-600">12V DC. Benötigt ein starkes, separates <strong>12V Netzteil (min. 7A)</strong>.</p></div><hr>
+                        <div><h4 class="font-bold">Lampen:</h4><p class="text-sm text-gray-600">230V AC. Das Relais schaltet die Steckdosenspannung für die originalen Netzteile.</p></div><hr>
+                        <div><h4 class="font-bold">Fenstermotor:</h4><p class="text-sm text-gray-600">12V DC. Kann über ein separates <strong>12V Netzteil (min. 1A)</strong> versorgt werden.</p></div>
+                     </div>
+                </div>
+                
+                 <div class="manual-card">
+                    <h3 class="flex items-center gap-3 text-[#45B7D1]"><div class="text-3xl">🚀</div><span>D: Erweiterungsideen für die Zukunft</span></h3>
+                    <ul class="list-disc list-inside space-y-2 mt-4 text-gray-600 pl-4">
+                        <li><strong>Nährstoffpumpe:</strong> Integrieren Sie eine zweite, kleinere Pumpe, um automatisch Flüssigdünger zum Wasser hinzuzufügen.</li>
+                        <li><strong>Kamera-Modul:</strong> Fügen Sie eine Kamera am Raspberry Pi hinzu, um das Pflanzenwachstum per Livestream zu beobachten oder tägliche Zeitraffer-Aufnahmen zu erstellen.</li>
+                        <li><strong>Füllstandssensor:</strong> Erweitern Sie den Arduino um einen Ultraschall- oder Schwimmsensor, um den Wasserstand im Tank zu messen und eine Warnung in der GUI anzuzeigen.</li>
+                        <li><strong>Daten-Logging:</strong> Speichern Sie die Sensordaten in einer Datei oder Datenbank auf dem Raspberry Pi, um Langzeitanalysen durchführen zu können.</li>
+                    </ul>
+                </div>
+
+                <div class="manual-card">
+                     <h3 class="flex items-center gap-3 text-[#45B7D1]"><div class="text-3xl">✏️</div><span>E: Code-Referenz</span></h3>
+                    <div class="sticky top-2 z-10 p-2 bg-white/80 backdrop-blur-sm rounded-lg shadow my-6">
+                         <input type="text" id="commandSearch" placeholder="🔍 Suchen Sie nach einem Befehl oder Aktor (z.B. Pumpe, GUI)..." class="w-full p-3 border border-gray-300 rounded-md focus:ring-2 focus:ring-[#4ECDC4] focus:border-transparent">
+                    </div>
+                    <div class="space-y-8">
+                        <details open class="border-t pt-4"><summary class="text-xl font-bold">Arduino Code-Referenz (.ino)</summary><div id="arduino-commands" class="mt-4 space-y-4"><div class="command-card p-4 border rounded-lg"><h3 class="font-bold">#define PIN_NAME</h3><p class="text-sm text-gray-600">Definiert einen Pin. Dies ist der Ort, an dem Sie die physische Verkabelung im Code abbilden.</p><pre><code class="language-cpp">#define PUMP_PIN 6</code></pre></div><div class="command-card p-4 border rounded-lg"><h3 class="font-bold">const int VARIABLE</h3><p class="text-sm text-gray-600">Deklariert eine feste Konfigurationsvariable. Hier stellen Sie Schwellenwerte ein.</p><pre><code class="language-cpp">const int SOIL_MOISTURE_THRESHOLD_PCT = 55;</code></pre></div><div class="command-card p-4 border rounded-lg"><h3 class="font-bold">setup()</h3><p class="text-sm text-gray-600">Wird einmal beim Start des Arduinos ausgeführt. Initialisiert Pins, Sensoren etc.</p></div><div class="command-card p-4 border rounded-lg"><h3 class="font-bold">loop()</h3><p class="text-sm text-gray-600">Das Herz des Programms. Läuft unendlich oft und reagiert dank `millis()` sofort auf GUI-Befehle.</p></div><div class="command-card p-4 border rounded-lg"><h3 class="font-bold">runAutoControl()</h3><p class="text-sm text-gray-600">Hier sind alle Regeln für den AUTO-Modus definiert.</p></div><div class="command-card p-4 border rounded-lg"><h3 class="font-bold">setAktor()</h3><p class="text-sm text-gray-600">Setzt einen digitalen Pin auf HIGH/LOW, um ein Relais zu schalten.</p></div></div></details>
+                        <details class="border-t pt-4"><summary class="text-xl font-bold">Python GUI Code-Referenz (.py)</summary><div id="python-commands" class="mt-4 space-y-4"><div class="command-card p-4 border rounded-lg"><h3 class="font-bold">find_arduino()</h3><p class="text-sm text-gray-600">Sucht beim Start nach einem angeschlossenen Arduino.</p></div><div class="command-card p-4 border rounded-lg"><h3 class="font-bold">class GreenhouseGUI</h3><p class="text-sm text-gray-600">Die Hauptklasse für das gesamte GUI-Fenster.</p></div><div class="command-card p-4 border rounded-lg"><h3 class="font-bold">setup_ui()</h3><p class="text-sm text-gray-600">Baut die gesamte grafische Oberfläche zusammen.</p></div><div class="command-card p-4 border rounded-lg"><h3 class="font-bold">update_data()</h3><p class="text-sm text-gray-600">Liest periodisch JSON-Daten vom Arduino und aktualisiert die GUI.</p></div><div class="command-card p-4 border rounded-lg"><h3 class="font-bold">send_command_to_arduino()</h3><p class="text-sm text-gray-600">Formatiert Befehle in JSON und sendet sie an den Arduino.</p></div><div class="command-card p-4 border rounded-lg"><h3 class="font-bold">callGardenerAI()</h3><p class="text-sm text-gray-600">Formuliert den System-Prompt und sendet die Anfrage an die Gemini API.</p></div></div></details>
+                    </div>
+                </div>
+            </section>
+        </main>
+        
+        <footer class="mt-16 pt-8 border-t text-center text-sm text-gray-500">
+            <p><strong>Ein Projekt der Gruppe EIS23</strong></p>
+            <p>Nico Loske, Jonas Pleis, Malte Fleßner</p>
+            <p class="mt-4">Smart Greenhouse | Benutzerhandbuch (Entwickler-Edition)</p>
+        </footer>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            const ctx = document.getElementById('growthPhaseChart').getContext('2d');
+            new Chart(ctx, {
+                type: 'bar',
+                data: {
+                    labels: ['Vegetativ', 'Blüte', 'Frucht'],
+                    datasets: [
+                        { label: 'Max Temp Tag (°C)', data: [26, 24, 25], backgroundColor: '#FF6B6B' },
+                        { label: 'Max Temp Nacht (°C)', data: [22, 18, 15], backgroundColor: '#FED766' },
+                        { label: 'Max Luftf. Tag (%)', data: [80, 70, 65], backgroundColor: '#4ECDC4' },
+                        { label: 'Max Luftf. Nacht (%)', data: [90, 80, 75], backgroundColor: '#45B7D1' }
+                    ]
+                },
+                options: { responsive: true, maintainAspectRatio: false, scales: { y: { beginAtZero: true } }, plugins: { legend: { position: 'bottom' }, title: { display: true, text: 'Zielwerte der Wachstumsphasen' } } }
+            });
+
+            const searchInput = document.getElementById('commandSearch');
+            const commandCards = document.querySelectorAll('.command-card');
+            searchInput.addEventListener('input', (e) => {
+                const searchTerm = e.target.value.toLowerCase();
+                commandCards.forEach(card => {
+                    const cardText = card.textContent.toLowerCase();
+                    if (cardText.includes(searchTerm)) {
+                        card.style.display = 'block';
+                    } else {
+                        card.style.display = 'none';
+                    }
+                });
+            });
+            
+            const apiKey = ""; 
+            const apiUrl = `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash-preview-05-20:generateContent?key=${apiKey}`;
+            const chatButton = document.getElementById('ask-button');
+            const chatInput = document.getElementById('plant-question');
+            const chatContainer = document.getElementById('chat-container');
+            const chatLoader = document.getElementById('chat-loader');
+            const chatResult = document.getElementById('chat-result');
+
+            async function callGardenerAI(userQuestion) {
+                chatButton.disabled = true;
+                chatInput.disabled = true;
+                chatContainer.classList.remove('hidden');
+                chatLoader.classList.remove('hidden');
+                chatResult.innerHTML = '';
+
+                const systemPrompt = `Du bist ein Experte für den Anbau von Pflanzen, Gärtnerei und Botanik. Deine Aufgabe ist es, Fragen zu diesen Themen detailliert, hilfreich und für Anfänger verständlich zu beantworten. Gib Ratschläge für die besten Ergebnisse (z.B. für Geschmack, Größe, Ertrag). Formatiere deine Antworten mit **Fettdruck** für wichtige Begriffe und nutze Absätze zur besseren Lesbarkeit.
+                WICHTIG: Antworte ausschließlich auf Fragen, die sich auf Pflanzen, Gartenarbeit, Botanik oder verwandte Themen beziehen. Wenn eine Frage nichts damit zu tun hat (z.B. nach dem Wetter, Rezepten, Geschichte fragt), lehne die Antwort höflich ab und erkläre, dass du nur für Pflanzenthemen zuständig bist.`;
+
+                try {
+                    const payload = { contents: [{ parts: [{ text: userQuestion }] }], systemInstruction: { parts: [{ text: systemPrompt }] } };
+                    const response = await fetch(apiUrl, { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(payload) });
+                    if (!response.ok) { throw new Error(`API error: ${response.statusText}`); }
+                    const result = await response.json();
+                    const text = result.candidates[0].content.parts[0].text;
+                    const userHtml = `<div class="font-semibold text-gray-600">Ihre Frage:</div><p class="text-gray-800">${userQuestion}</p>`;
+                    const aiHtml = `<div class="font-semibold text-blue-600 mt-4">Antwort des Experten:</div><p class="text-blue-800">${text.replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>').replace(/\n/g, '<br>')}</p>`;
+                    chatResult.innerHTML = userHtml + aiHtml;
+                } catch (error) {
+                    chatResult.innerHTML = '<p>Ein Fehler ist aufgetreten. Bitte versuchen Sie es später erneut.</p>';
+                    console.error("Gemini API Error:", error);
+                } finally {
+                    chatButton.disabled = false;
+                    chatInput.disabled = false;
+                    chatLoader.classList.add('hidden');
+                }
+            }
+            
+            chatButton.addEventListener('click', () => {
+                const question = chatInput.value.trim();
+                if (question) { callGardenerAI(question); }
+            });
+             chatInput.addEventListener('keypress', (e) => {
+                if (e.key === 'Enter') { chatButton.click(); }
+            });
+        });
+    </script>
+</body>
+</html>
+
+
